@@ -26,8 +26,8 @@
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="240.15927"
-     inkscape:cy="149.61169"
+     inkscape:cx="148.48793"
+     inkscape:cy="147.59138"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -53,6 +53,13 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-35.57785,-28.600018)">
+    <rect
+       style="fill:#ffffff;fill-opacity:1;stroke-width:0.26458332"
+       id="rect879"
+       width="119.20221"
+       height="50.24667"
+       x="34.107868"
+       y="27.666248" />
     <g
        id="g2357"
        transform="matrix(0.44234719,0,0,0.44234719,-46.236917,-25.90556)"
