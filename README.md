@@ -63,7 +63,7 @@ The Needleman-Wunsch algorithm enables the calculation of the optimal pairwise s
 **d)** Find the optimal alignment of the given sequences,
 while assuming that the first G character in each sequence has to be matched/aligned
 
-### _Exercise 3 - Hirschberg recursion: Implementation of Needleman-Wunsch algorithm_
+### _Exercise 3 - Hirschberg recursion and Needleman-Wunsch algorithm_
 
 Which statements about Needleman-Wunsch and the Hirschberg recursion are True and 
 which are False
