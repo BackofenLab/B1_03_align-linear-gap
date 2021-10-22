@@ -52,7 +52,7 @@ The Needleman-Wunsch algorithm enables the calculation of the optimal pairwise s
 
 #TODO add the matrix into the readme
 
-**a)** Complete the provided tables with the correct initialization step
+**a)** Complete the provided table with the correct initialization step
 
 
 **b)** Using dynamic programming technique fill in all values in the matrix
@@ -60,8 +60,21 @@ The Needleman-Wunsch algorithm enables the calculation of the optimal pairwise s
 
 **c)** Using the matrix from **b)** find the optimal alignment of the given sequences
 
+**d)** Find the optimal alignment of the given sequences,
+while assuming that the first G character in each sequence has to be matched/aligned
 
-### _Exercise 3 - Programming assignment: Implementation of Needleman-Wunsch algorithm_
+### _Exercise 3 - Hirschberg recursion: Implementation of Needleman-Wunsch algorithm_
+
+Which statements about Needleman-Wunsch and the Hirschberg recursion are True and 
+which are False
+
+ - [ ] Hirschberg computes global alignment in O(n²) space
+ - [ ] Needleman-Wunsch computes global alignment in O(n²) time
+ - [ ] The Hirschberg recursion is a space optimized version of the Needleman-Wunsch algorithm
+ - [ ] Hirschberg computes global alignment in O(n) time
+
+
+### _Exercise 4 - Programming assignment: Implementation of Needleman-Wunsch algorithm_
 
 **a)** Implement the function zero_init() which takes two sequences S1 and S2 and creates the Needleman-Wunsch matrix and initiates all the matrix values with zeroes
 
