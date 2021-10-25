@@ -1,5 +1,4 @@
 from exercise_sheet3 import *
-from helpers.matrix_helpers import nw_init, given_matrix_csv_maker
 
 
 def test_exercise_1():
@@ -54,8 +53,27 @@ def test_exercise_3():
     assert not d
 
 
-def nw_forward(seq1, seq2, scoring):
-    matrix = nw_init(seq1, seq2, scoring)
+###############################################
+###########Programming related tests###########
+###############################################
+
+
+def init_matrix_correct(seq1, seq2):
+    return [[0] * (len(seq2)+1) for _ in range(len(seq1) + 1)]
+
+
+def nw_init_correct(seq1, seq2, scoring):
+    match, mismatch, gap = scoring["match"], scoring["mismatch"], scoring["gap_introduction"]
+    matrix = init_matrix_correct(seq1, seq2)
+    first_row = [i * mismatch for i in range(len(seq2) + 1)]
+    matrix[0] = first_row
+    for index, column in enumerate(matrix):
+        column[0] = index * mismatch
+    return matrix
+
+
+def nw_forward_correct(seq1, seq2, scoring):
+    matrix = nw_init_correct(seq1, seq2, scoring)
     match_score, mismatch_score, gap_score = scoring["match"], scoring["mismatch"], scoring["gap_introduction"]
 
     for row_index, row in enumerate(matrix[1:], 1):
@@ -70,6 +88,84 @@ def nw_forward(seq1, seq2, scoring):
             matrix[row_index][column_index] = max_val
 
     return matrix
+
+
+def previous_cells_correct(seq1, seq2, scoring, nw_matrix, cell):
+    prev_cells = []
+    row, column = cell
+
+    top = row - 1, column if row > 0 else None
+    left = row, column - 1 if column > 0 else None
+    diagonal = row - 1, column - 1 if (row > 1 and column > 1) else None
+
+    cur_val = nw_matrix[row][column]
+    char_first, char_second = seq1[row+1], seq2[column+1]
+    match_score = scoring["match"] if char_first == char_first else scoring["mismatch"]
+    gap_score = scoring["gap_introduction"]
+
+    if diagonal:
+        diagonal_val = nw_matrix[diagonal[0]][diagonal[1]]
+        if (diagonal_val + match_score) == cur_val:
+            prev_cells.append(diagonal)
+
+    if top:
+        top_val = nw_matrix[top[0]][top[1]]
+        if top_val + gap_score == cur_val:
+            prev_cells.append(top)
+
+    if left:
+        left_val = nw_matrix[left[0]][left[1]]
+        if left_val + gap_score == cur_val:
+            prev_cells.append(left)
+
+    return prev_cells
+
+
+def build_all_traceback_paths_correct(seq1, seq2, scoring, nw_matrix):
+    list_traceback_paths = []
+
+    cell = len(nw_matrix), len(nw_matrix[0])
+    frontier = [[cell]]
+    while frontier:
+        partial_path = frontier.pop()
+        last_cell_partial = partial_path[-1]
+        next_steps = previous_cells_correct(seq1, seq2, scoring, nw_matrix, last_cell_partial)
+        for next_step in next_steps:
+            new_traceback_path = partial_path + [next_step]
+            if next_step == (0, 0):
+                list_traceback_paths.append(new_traceback_path)
+            else:
+                frontier.append(new_traceback_path)
+
+    return list_traceback_paths
+
+
+def build_alignment_correct(seq1, seq2, alignment_path):
+    align_seq1 = ''
+    align_seq2 = ''
+
+    alignment_path = alignment_path[::-1]
+
+    prev_cell = 0, 0
+    for cell in alignment_path[1:]:
+        prev_row, prev_column = prev_cell
+        row, column = cell
+
+        if (row > prev_row) and (column > prev_column):
+            align_seq1 += seq1[row]
+            align_seq2 += seq2[column]
+
+        elif row > prev_row:
+            align_seq1 += "-"
+            align_seq2 += seq2[column]
+
+        else:
+            align_seq1 += seq1[row]
+            align_seq2 += "-"
+
+        prev_cell = cell
+
+    return align_seq1, align_seq2
 
 
 if __name__ == "__main__":
