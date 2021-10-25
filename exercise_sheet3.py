@@ -61,7 +61,6 @@ def exercise_2_c():
     """
     Exercise 2 c
     Using the matrix from b) find the optimal alignment of the given sequences
-
     """
 
     sequence1 = "TCCGA"
