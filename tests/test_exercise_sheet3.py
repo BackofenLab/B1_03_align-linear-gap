@@ -1,4 +1,6 @@
+import sys
 from exercise_sheet3 import *
+from helpers.matrix_helpers import nw_init_csv_maker, given_matrix_csv_maker
 
 
 def test_exercise_1():
@@ -65,10 +67,10 @@ def init_matrix_correct(seq1, seq2):
 def nw_init_correct(seq1, seq2, scoring):
     match, mismatch, gap = scoring["match"], scoring["mismatch"], scoring["gap_introduction"]
     matrix = init_matrix_correct(seq1, seq2)
-    first_row = [i * mismatch for i in range(len(seq2) + 1)]
+    first_row = [i * gap for i in range(len(seq2) + 1)]
     matrix[0] = first_row
     for index, column in enumerate(matrix):
-        column[0] = index * mismatch
+        column[0] = index * gap
     return matrix
 
 
@@ -94,13 +96,13 @@ def previous_cells_correct(seq1, seq2, scoring, nw_matrix, cell):
     prev_cells = []
     row, column = cell
 
-    top = row - 1, column if row > 0 else None
-    left = row, column - 1 if column > 0 else None
-    diagonal = row - 1, column - 1 if (row > 1 and column > 1) else None
+    top = (row - 1, column) if row > 0 else None
+    left = (row, column - 1) if column > 0 else None
+    diagonal = (row - 1, column - 1) if (row > 0 and column > 0) else None
 
     cur_val = nw_matrix[row][column]
-    char_first, char_second = seq1[row+1], seq2[column+1]
-    match_score = scoring["match"] if char_first == char_first else scoring["mismatch"]
+    char_first, char_second = seq1[row-1], seq2[column-1]
+    match_score = scoring["match"] if char_first == char_second else scoring["mismatch"]
     gap_score = scoring["gap_introduction"]
 
     if diagonal:
@@ -110,12 +112,12 @@ def previous_cells_correct(seq1, seq2, scoring, nw_matrix, cell):
 
     if top:
         top_val = nw_matrix[top[0]][top[1]]
-        if top_val + gap_score == cur_val:
+        if (top_val + gap_score) == cur_val:
             prev_cells.append(top)
 
     if left:
         left_val = nw_matrix[left[0]][left[1]]
-        if left_val + gap_score == cur_val:
+        if (left_val + gap_score) == cur_val:
             prev_cells.append(left)
 
     return prev_cells
@@ -124,7 +126,7 @@ def previous_cells_correct(seq1, seq2, scoring, nw_matrix, cell):
 def build_all_traceback_paths_correct(seq1, seq2, scoring, nw_matrix):
     list_traceback_paths = []
 
-    cell = len(nw_matrix), len(nw_matrix[0])
+    cell = len(nw_matrix) - 1, len(nw_matrix[0]) - 1
     frontier = [[cell]]
     while frontier:
         partial_path = frontier.pop()
@@ -147,34 +149,48 @@ def build_alignment_correct(seq1, seq2, alignment_path):
     alignment_path = alignment_path[::-1]
 
     prev_cell = 0, 0
-    for cell in alignment_path[1:]:
+    for cell in alignment_path[1:-1]:
         prev_row, prev_column = prev_cell
         row, column = cell
 
         if (row > prev_row) and (column > prev_column):
-            align_seq1 += seq1[row]
-            align_seq2 += seq2[column]
+            align_seq1 += seq1[row-1]
+            align_seq2 += seq2[column-1]
 
         elif row > prev_row:
-            align_seq1 += "-"
-            align_seq2 += seq2[column]
+            align_seq1 += seq1[row-1]
+            align_seq2 += "-"
 
         else:
-            align_seq1 += seq1[row]
-            align_seq2 += "-"
+            align_seq1 += "-"
+            align_seq2 += seq2[column-1]
 
         prev_cell = cell
 
     return align_seq1, align_seq2
 
 
-if __name__ == "__main__":
-    seq1 = "AT"
-    seq2 = "CTAT"
+def check_implementation():
+    sequence1 = "ATACGAC"
+    sequence2 = "TTACGGACCCC"
     scoring = {"match": 1,
                "mismatch": -2,
                "gap_introduction": -1}
 
-    matrix = nw_init(seq1, seq2, scoring)
-    matrix = nw_forward(seq1, seq2, scoring)
-    given_matrix_csv_maker(seq1, seq2, matrix)
+    matrix = nw_forward_correct(sequence1, sequence2, scoring)
+    given_matrix_csv_maker(sequence1, sequence2, matrix, "nw_matrix_test.csv")
+    all_traceback_paths = build_all_traceback_paths_correct(sequence1, sequence2, scoring, matrix)
+
+    for tr in all_traceback_paths:
+        al1, al2 = build_alignment_correct(sequence1, sequence2, tr)
+
+        print(al1)
+        print(al2)
+        print("\n")
+
+
+if __name__ == "__main__":
+    check_implementation()
+
+
+
