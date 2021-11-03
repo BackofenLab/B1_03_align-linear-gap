@@ -31,6 +31,10 @@ def exercise_2_a():
     Exercise 2 a
     Complete the provided table with the correct initialization step.
     (Hint: Only fill in column 1 and row 1 with the correct values)
+    Remember:
+                  |  +1 if x = "-" or y = "-"
+        w(x,y) =  |  -1 if x = y
+                  |  else 0
     """
     row_1 = []
     column_1 = []
@@ -42,6 +46,10 @@ def exercise_2_b():
     Exercise 2 b
     Using dynamic programming technique fill in all values in the matrix.
     (Hint: For column 1 and row 1 you can use the values from exercise 2 a)
+     Remember:
+                  |  +1 if x = "-" or y = "-"
+        w(x,y) =  |  -1 if x = y
+                  |  else 0
     """
     #       T  C  C  G  A
     table = [
@@ -61,7 +69,10 @@ def exercise_2_c():
     """
     Exercise 2 c
     Using the matrix from b) find the optimal alignment of the given sequences
-
+     Remember:
+                  |  +1 if x = "-" or y = "-"
+        w(x,y) =  |  -1 if x = y
+                  |  else 0
     """
 
     sequence1 = "TCCGA"
