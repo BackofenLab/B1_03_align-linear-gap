@@ -118,9 +118,27 @@ def exercise_3():
 ############## Programming tasks #######################
 ########################################################
 
-
-
 def init_zero(seq1, seq2):
+    return None
+
+
+def nw_init(seq1, seq2):
+    return None
+
+
+def nw_forward(seq1, seq2):
+    return None
+
+
+def previous_cells(seq1, seq2, scoring, nw_matrix, cell):
+    return None
+
+
+def build_all_traceback_paths(seq1, seq2, scoring, nw_matrix):
+    return None
+
+
+def build_alignment(seq1, seq2, traceback_path):
     return None
 
 
