@@ -2,21 +2,33 @@ from exercise_sheet3 import *
 from helpers.matrix_helpers import nw_init, given_matrix_csv_maker
 
 
-def test_exercise_1():
+def test_exercise_1a():
     a, b, c, d = exercise_1()
     assert a
+
+
+def test_exercise_1b():
+    a, b, c, d = exercise_1()
     assert b
+
+
+def test_exercise_1c():
+    a, b, c, d = exercise_1()
     assert not c
-    assert not d
 
 
-def test_exercise_2_a():
+def test_exercise_1d():
+    a, b, c, d = exercise_1()
+    assert d
+
+
+def test_exercise_2a():
     row, column = exercise_2_a()
     assert row == [0, 1, 2, 3, 4, 5]
     assert column == [0, 1, 2, 3, 4, 5, 6, 7]
 
 
-def test_exercise_2_b():
+def test_exercise_2b():
     expected_table = [
         [0,  1,  2,  3,  4,  5],
         [1, -1,  0,  1,  2,  3],
@@ -31,13 +43,13 @@ def test_exercise_2_b():
     assert expected_table == table
 
 
-def test_exercise_2_c():
+def test_exercise_2c():
     sequence1, sequence2 = exercise_2_c()
     assert sequence1 == "T-C-CGA"
     assert sequence2 == "TACGCGC"
 
 
-def test_exercise_2_d():
+def test_exercise_2d():
     """
     Hint: w(a*, b*) = sum_i(w(a_i, b_i))
     """
@@ -51,6 +63,26 @@ def test_exercise_3():
     assert not a
     assert b
     assert c
+    assert not d
+
+
+def test_exercise_3a():
+    a, b, c, d = exercise_3()
+    assert not a
+
+
+def test_exercise_3b():
+    a, b, c, d = exercise_3()
+    assert b
+
+
+def test_exercise_3c():
+    a, b, c, d = exercise_3()
+    assert c
+
+
+def test_exercise_3d():
+    a, b, c, d = exercise_3()
     assert not d
 
 
