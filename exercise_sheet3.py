@@ -1,5 +1,5 @@
 from helpers.matrix_helpers import nw_init_csv_maker
-from typing import Dict
+from typing import Dict, List, Tuple
 
 
 def exercise_1():
@@ -114,10 +114,10 @@ def exercise_3():
     return a, b, c, d
 
 
-
 ########################################################
 ############## Programming tasks #######################
 ########################################################
+
 
 def zero_init(seq1, seq2):
     """
@@ -154,7 +154,9 @@ def nw_forward(seq1, seq2, scoring: Dict[str, int]):
     return None
 
 
-def previous_cells(seq1, seq2, scoring, nw_matrix, cell):
+def previous_cells(
+    seq1, seq2, scoring, nw_matrix, cell: Tuple[int, int]
+) -> List[Tuple[int, int]]:
     """
     Exercise 4 d
     Implement the function previous_cells() which takes two sequences S1 and
@@ -165,7 +167,9 @@ def previous_cells(seq1, seq2, scoring, nw_matrix, cell):
     return None
 
 
-def build_all_traceback_paths(seq1, seq2, scoring, nw_matrix):
+def build_all_traceback_paths(
+    seq1, seq2, scoring, nw_matrix
+) -> List[List[Tuple[int, int]]]:
     """
     Exercise 4 e
     Implement the function which builds all possible traceback paths.
@@ -173,7 +177,7 @@ def build_all_traceback_paths(seq1, seq2, scoring, nw_matrix):
     return None
 
 
-def build_alignment(seq1, seq2, traceback_path):
+def build_alignment(seq1, seq2, traceback_path) -> Tuple[str, str]:
     """
     Exercise 4 f
     Implement the function build_alignment() which takes two sequences and
@@ -185,9 +189,6 @@ def build_alignment(seq1, seq2, traceback_path):
 if __name__ == "__main__":
     seq1 = "AT"
     seq2 = "CTAT"
-    scoring = {"match": -1,
-               "mismatch": 0,
-               "gap_introduction": 1}
-
+    scoring = {"match": -1, "mismatch": 0, "gap_introduction": 1}
 
     nw_init_csv_maker(seq1, seq2, scoring)

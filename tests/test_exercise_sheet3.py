@@ -1,25 +1,40 @@
 from exercise_sheet3 import *
-from helpers.matrix_helpers import nw_init_correct, given_matrix_csv_maker, nw_forward_correct, zero_init_correct
+import pytest
+from helpers.matrix_helpers import (
+    nw_init_correct,
+    given_matrix_csv_maker,
+    nw_forward_correct,
+    zero_init_correct,
+    build_all_traceback_paths_correct,
+    previous_cells_correct,
+    build_alignment_correct,
+)
+
+SCORING = [
+    {"match": -1, "mismatch": 0, "gap_introduction": 1},
+    {"match": -1, "mismatch": 0, "gap_introduction": 2},
+    {"match": -1, "mismatch": 1, "gap_introduction": 2},
+]
 
 
 def test_exercise_1a():
     a, b, c, d = exercise_1()
-    assert a
+    assert a is True
 
 
 def test_exercise_1b():
     a, b, c, d = exercise_1()
-    assert b
+    assert b is True
 
 
 def test_exercise_1c():
     a, b, c, d = exercise_1()
-    assert not c
+    assert c is False
 
 
 def test_exercise_1d():
     a, b, c, d = exercise_1()
-    assert d
+    assert d is False
 
 
 def test_exercise_2a():
@@ -30,14 +45,14 @@ def test_exercise_2a():
 
 def test_exercise_2b():
     expected_table = [
-        [0,  1,  2,  3,  4,  5],
-        [1, -1,  0,  1,  2,  3],
-        [2,  0, -1,  0,  1,  1],
-        [3,  1, -1, -2, -1,  0],
-        [4,  2,  0, -1, -3, -2],
-        [5,  3,  1, -1, -2, -3],
-        [6,  4,  2,  0, -2, -2],
-        [7,  5,  3,  1, -1, -2],
+        [0, 1, 2, 3, 4, 5],
+        [1, -1, 0, 1, 2, 3],
+        [2, 0, -1, 0, 1, 1],
+        [3, 1, -1, -2, -1, 0],
+        [4, 2, 0, -1, -3, -2],
+        [5, 3, 1, -1, -2, -3],
+        [6, 4, 2, 0, -2, -2],
+        [7, 5, 3, 1, -1, -2],
     ]
     table = exercise_2_b()
     assert expected_table == table
@@ -58,58 +73,130 @@ def test_exercise_2d():
     assert sequence2 == "TACGCGC"
 
 
-def test_exercise_3():
-    a, b, c, d = exercise_3()
-    assert not a
-    assert b
-    assert c
-    assert not d
-
-
 def test_exercise_3a():
     a, b, c, d = exercise_3()
-    assert not a
+    assert a is False
 
 
 def test_exercise_3b():
     a, b, c, d = exercise_3()
-    assert b
+    assert b is True
 
 
 def test_exercise_3c():
     a, b, c, d = exercise_3()
-    assert c
+    assert c is True
 
 
 def test_exercise_3d():
     a, b, c, d = exercise_3()
-    assert not d
-    
-  
+    assert d is False
+
+
+@pytest.mark.parametrize(
+    "seq1,seq2",
+    [
+        ("TCCGA", "TACGCGC")
+    ]
+)
 def test_exercise_4a(seq1, seq2):
     expected_matrix = zero_init_correct(seq1, seq2)
     actual_matrix = zero_init(seq1, seq2)
     assert expected_matrix == actual_matrix
 
 
+@pytest.mark.parametrize(
+    "seq1,seq2,scoring",
+    [
+        ("TCCGA", "TACGCGC", SCORING[0]),
+        ("TCCGA", "TACGCGC", SCORING[1]),
+        ("TCCGA", "TACGCGC", SCORING[2]),
+    ]
+)
 def test_exercise_4b(seq1, seq2, scoring):
     expected_matrix = nw_init_correct(seq1, seq2, scoring)
     actual_matrix = nw_init(seq1, seq2, scoring)
     assert expected_matrix == actual_matrix
 
 
+@pytest.mark.parametrize(
+    "seq1,seq2,scoring",
+    [
+        ("TCCGA", "TACGCGC", SCORING[0]),
+        ("TCCGA", "TACGCGC", SCORING[1]),
+        ("TCCGA", "TACGCGC", SCORING[2]),
+    ]
+)
 def test_exercise_4c(seq1, seq2, scoring):
     expected_matrix = nw_forward_correct(seq1, seq2, scoring)
     actual_matrix = nw_forward(seq1, seq2, scoring)
     assert expected_matrix == actual_matrix
 
+@pytest.mark.parametrize(
+    "seq1,seq2,scoring,cell",
+    [
+        ("TCCGA", "TACGCGC", SCORING[0], (1, 1)),
+        ("TCCGA", "TACGCGC", SCORING[1], (5, 7)),
+        ("TCCGA", "TACGCGC", SCORING[2], (3, 4)),
+    ]
+)
+def test_exercise_4d(seq1, seq2, scoring, cell):
+    nw_matrix = nw_forward_correct(seq1, seq2, scoring)
+    expected_cells = previous_cells_correct(
+        seq1, seq2, scoring, nw_matrix, cell
+    )
+    actual_cells = previous_cells(seq1, seq2, scoring, nw_matrix, cell)
+    expected_cells = set(expected_cells)
+    actual_cells = set(actual_cells)
+    assert expected_cells == actual_cells
+
+
+@pytest.mark.parametrize(
+    "seq1,seq2,scoring",
+    [
+        ("TCCGA", "TACGCGC", SCORING[0]),
+        ("TCCCGG", "TCAAA", SCORING[0]),
+        ("TCCGA", "TACGCGC", SCORING[1]),
+        ("TCCGA", "TACGCGC", SCORING[2]),
+    ]
+)
+def test_exercise_4e(seq1, seq2, scoring):
+    nw_matrix = nw_forward_correct(seq1, seq2, scoring)
+    expected_paths = build_all_traceback_paths_correct(
+        seq1, seq2, scoring, nw_matrix
+    )
+    actual_paths = build_all_traceback_paths(seq1, seq2, scoring, nw_matrix)
+    expected_paths = [tuple(x) for x in expected_paths]
+    expected_paths = set(expected_paths)
+    actual_paths = [tuple(x) for x in actual_paths]
+    actual_paths = set(actual_paths)
+    assert expected_paths == actual_paths
+
+@pytest.mark.parametrize(
+    "seq1,seq2,scoring",
+    [
+        ("TCCGA", "TACGCGC", SCORING[0]),
+        ("TCCCGG", "TCAAA", SCORING[0]),
+        ("TCCGA", "TACGCGC", SCORING[1]),
+        ("TCCGA", "TACGCGC", SCORING[2]),
+    ]
+)
+def test_exercise_4f(seq1, seq2, scoring):
+    nw_matrix = nw_forward_correct(seq1, seq2, scoring)
+    expected_paths = build_all_traceback_paths_correct(
+        seq1, seq2, scoring, nw_matrix
+    )
+    for traceback_path in expected_paths:
+        expected_alignment = build_alignment_correct(seq1, seq2, traceback_path)
+        actual_alignment = build_alignment(seq1, seq2, traceback_path)
+        assert expected_alignment == actual_alignment
+
 
 if __name__ == "__main__":
     seq1 = "AT"
     seq2 = "CTAT"
-    scoring = {"match": -1,
-               "mismatch": 0,
-               "gap_introduction": 1}
+
+    scoring = {"match": -1, "mismatch": 0, "gap_introduction": 1}
 
     matrix = nw_forward_correct(seq1, seq2, scoring)
     given_matrix_csv_maker(seq1, seq2, matrix)
