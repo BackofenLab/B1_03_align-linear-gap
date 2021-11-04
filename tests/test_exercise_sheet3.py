@@ -28,11 +28,17 @@ def test_exercise_1b():
 
 
 def test_exercise_1c():
+    """
+    In an alignment both strings have to be of same length
+    """
     a, b, c, d = exercise_1()
     assert c is False
 
 
 def test_exercise_1d():
+    """
+    A gap cannot be aligned with a gap
+    """
     a, b, c, d = exercise_1()
     assert d is False
 
@@ -67,6 +73,8 @@ def test_exercise_2c():
 def test_exercise_2d():
     """
     Hint: w(a*, b*) = sum_i(w(a_i, b_i))
+    You can split the alignment at the G and treat it as two separate
+    alignments
     """
     sequence1, sequence2 = exercise_2_d()
     assert sequence1 in ["TCCGA--", "TCCG-A-", "TCCG--A"]

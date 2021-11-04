@@ -87,7 +87,8 @@ scoring = {"match": -1,
                "gap_introduction": 0}
 
 You do not need to write the scoring function by yourself. However, make sure you use the correct keys in your implementation.
-An example will be provided in the skeleton of part a)
+An example will be provided in the skeleton of part a). Despite most implementations of Needleman Wunsch will use a
+maximization at the optimization step, we will stick to the lecture and use minimization. (score(match) < score(gap))
 Also have a look at return typehints in the skeleton functions and read carefully how the results should be returned.
 
 ---
