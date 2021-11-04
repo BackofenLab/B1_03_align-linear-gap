@@ -1,5 +1,5 @@
 from exercise_sheet3 import *
-from helpers.matrix_helpers import nw_init, given_matrix_csv_maker
+from helpers.matrix_helpers import nw_init_correct, given_matrix_csv_maker, nw_forward_correct
 
 
 def test_exercise_1a():
@@ -86,24 +86,6 @@ def test_exercise_3d():
     assert not d
 
 
-def nw_forward(seq1, seq2, scoring):
-    matrix = nw_init(seq1, seq2, scoring)
-    match_score, mismatch_score, gap_score = scoring["match"], scoring["mismatch"], scoring["gap_introduction"]
-
-    for row_index, row in enumerate(matrix[1:], 1):
-        for column_index, column in enumerate(row[1:], 1):
-            char_seq_1, char_seq_2 = seq1[row_index-1], seq2[column_index-1]
-            no_gap_score = match_score if char_seq_1 == char_seq_2 else mismatch_score
-
-            diagonal = matrix[row_index-1][column_index-1] + no_gap_score
-            left = matrix[row_index][column_index - 1] + gap_score
-            top = matrix[row_index - 1][column_index] + gap_score
-            max_val = max(top, left, diagonal)
-            matrix[row_index][column_index] = max_val
-
-    return matrix
-
-
 if __name__ == "__main__":
     seq1 = "AT"
     seq2 = "CTAT"
@@ -111,6 +93,5 @@ if __name__ == "__main__":
                "mismatch": -2,
                "gap_introduction": -1}
 
-    matrix = nw_init(seq1, seq2, scoring)
-    matrix = nw_forward(seq1, seq2, scoring)
+    matrix = nw_forward_correct(seq1, seq2, scoring)
     given_matrix_csv_maker(seq1, seq2, matrix)

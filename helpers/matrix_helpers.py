@@ -31,3 +31,19 @@ def given_matrix_csv_maker(seq1, seq2, matrix, csv_file_name):
             f.write(char + "," + ",".join([str(x) for x in matrix[index]]) + "\n")
 
 
+def nw_forward_correct(seq1, seq2, scoring):
+    matrix = nw_init_correct(seq1, seq2, scoring)
+    match_score, mismatch_score, gap_score = scoring["match"], scoring["mismatch"], scoring["gap_introduction"]
+
+    for row_index, row in enumerate(matrix[1:], 1):
+        for column_index, column in enumerate(row[1:], 1):
+            char_seq_1, char_seq_2 = seq1[row_index-1], seq2[column_index-1]
+            no_gap_score = match_score if char_seq_1 == char_seq_2 else mismatch_score
+
+            diagonal = matrix[row_index-1][column_index-1] + no_gap_score
+            left = matrix[row_index][column_index - 1] + gap_score
+            top = matrix[row_index - 1][column_index] + gap_score
+            max_val = max(top, left, diagonal)
+            matrix[row_index][column_index] = max_val
+
+    return matrix
