@@ -118,27 +118,63 @@ def exercise_3():
 ############## Programming tasks #######################
 ########################################################
 
-def init_zero(seq1, seq2):
+def zero_init(seq1, seq2):
+    """
+    Exercise 4 a
+    Implement the function zero_init() which takes two sequences S1 and S2 and
+    creates the Needleman-Wunsch matrix and initiates all the matrix values
+    with zeroes
+    """
     return None
 
 
 def nw_init(seq1, seq2):
+    """
+    Exercise 4 b
+    Implement the function nw_init() which takes two sequences S1 and S2 as
+    well as the scoring function and fills in the values for the first row and
+    first column of the matrix with the correct values. Utilize a) in your
+    implementation.
+    """
+    matrix = zero_init(seq1, seq2)
     return None
 
 
 def nw_forward(seq1, seq2):
+    """
+    Exercise 4 c
+    Implement the function nw_forward() which takes the two sequences S1 and
+    S2 and the scoring function and output the complete matrix filled with
+    the Needleman-Wunsch approach.
+    """
     return None
 
 
 def previous_cells(seq1, seq2, scoring, nw_matrix, cell):
+    """
+    Exercise 4 d
+    Implement the function previous_cells() which takes two sequences S1 and
+    S2, scoring function, the filled in recursion matrix from the step c) and
+    the cell coordinates (row, column). The function should output the tuple
+    of all possible cell previous cells.
+    """
     return None
 
 
 def build_all_traceback_paths(seq1, seq2, scoring, nw_matrix):
+    """
+    Exercise 4 e
+    Implement the function which builds all possible traceback paths.
+    """
     return None
 
 
 def build_alignment(seq1, seq2, traceback_path):
+    """
+    Exercise 4 f
+    Implement the function build_alignment() which takes two sequences and
+    outputs the alignment.
+    """
     return None
 
 
