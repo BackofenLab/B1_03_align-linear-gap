@@ -66,8 +66,8 @@ def test_exercise_2b():
 
 def test_exercise_2c():
     sequence1, sequence2 = exercise_2_c()
-    assert sequence1 == "T-C-CGA"
-    assert sequence2 == "TACGCGC"
+    assert sequence1 == "TACGCGC"
+    assert sequence2 == "T-C-CGA"
 
 
 def test_exercise_2d():
@@ -77,8 +77,8 @@ def test_exercise_2d():
     alignments
     """
     sequence1, sequence2 = exercise_2_d()
-    assert sequence1 in ["TCCGA--", "TCCG-A-", "TCCG--A"]
-    assert sequence2 == "TACGCGC"
+    assert sequence1 == "TACGCGC"
+    assert sequence2 in ["TCCGA--", "TCCG-A-", "TCCG--A"]
 
 
 def test_exercise_3a():

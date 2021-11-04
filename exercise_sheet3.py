@@ -37,7 +37,9 @@ def exercise_2_a():
         w(x,y) =  |  -1 if x = y
                   |  else 0
     """
+    # S1 = TACGCGC
     row_1 = []
+    # S2 = TCCGA
     column_1 = []
     return row_1, column_1
 
@@ -76,8 +78,8 @@ def exercise_2_c():
                   |  else 0
     """
 
-    sequence1 = "TCCGA"
-    sequence2 = "TACGCGC"
+    sequence1 = "TACGCGC"
+    sequence2 = "TCCGA"
     return sequence1, sequence2
 
 
@@ -87,8 +89,8 @@ def exercise_2_d():
     Find the optimal alignment of the given sequences, while assuming that the
     first G character in each sequence has to be matched/aligned
     """
-    sequence1 = "TCCGA"
-    sequence2 = "TACGCGC"
+    sequence1 = "TACGCGC"
+    sequence2 = "TCCGA"
     return sequence1, sequence2
 
 
