@@ -124,7 +124,8 @@ def zero_init(seq1, seq2):
     Exercise 4 a
     Implement the function zero_init() which takes two sequences S1 and S2 and
     creates the Needleman-Wunsch matrix and initiates all the matrix values
-    with zeroes
+    with zeroes. Hereby S1 should be represented by the rows and S2 by
+    the columns.
     """
     return None
 
@@ -136,10 +137,12 @@ def nw_init(seq1, seq2, scoring: Dict[str, int]):
     well as the scoring function and fills in the values for the first row and
     first column of the matrix with the correct values. Utilize a) in your
     implementation.
-    The scoring should be a dictionary like the one below in the
-    if __name__ == "__main__":
-    part
     """
+    match, mismatch, gap = (
+        scoring["match"],
+        scoring["mismatch"],
+        scoring["gap_introduction"],
+    )
     matrix = zero_init(seq1, seq2)
     return None
 
@@ -187,6 +190,11 @@ def build_alignment(seq1, seq2, traceback_path) -> Tuple[str, str]:
 
 
 if __name__ == "__main__":
+    """
+    You can run this to create csv files from two sequences. Further you can 
+    import this file in excel or some similar program, where you can fill in
+    the forward values yourself.    
+    """
     seq1 = "AT"
     seq2 = "CTAT"
     scoring = {"match": -1, "mismatch": 0, "gap_introduction": 1}

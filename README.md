@@ -2,6 +2,8 @@ Albert-Ludwigs-Universität Freiburg
 
 Lehrstuhl für Bioinformatik - Institut für Informatik - *http://www.bioinf.uni-freiburg.de*
 
+Course ILIAS web page: *https://ilias.uni-freiburg.de/ilias.php?ref_id=2339316&cmdClass=ilobjcoursegui&cmd=view&cmdNode=zf:ns&baseClass=ilRepositoryGUI*
+
 ---
 ## Bioinformatics 1
 ###### WS 2021/2022
@@ -50,8 +52,6 @@ The Needleman-Wunsch algorithm enables the calculation of the optimal pairwise s
 <img src="./figures/table.svg" alt="metric1" width=60%/>
  </p>
 
-#TODO add the matrix into the readme
-
 **a)** Complete the provided table with the correct initialization step
 
 
@@ -79,17 +79,21 @@ which are False
 ---
 **NOTE**
 
-The programming assignment will use a scoring dictionary with 3 entries. This should look as follows:
+The programming assignment will use a scoring function as parameters which is a dictionary with 3 entries. 
+This will look as follows:
 
 scoring = {"match": -1,
                "mismatch": 1,
                "gap_introduction": 0}
 
-Make sure you use the correct keys in your implementation.
+You do not need to write the scoring function by yourself. However, make sure you use the correct keys in your implementation.
+An example will be provided in the skeleton of part a)
+Also have a look at return typehints in the skeleton functions and read carefully how the results should be returned.
 
 ---
 
-**a)** Implement the function zero_init() which takes two sequences S1 and S2 and creates the Needleman-Wunsch matrix and initiates all the matrix values with zeroes
+**a)** Implement the function zero_init() which takes two sequences S1 and S2 and creates the Needleman-Wunsch matrix and initiates all the matrix values with zeroes.
+Hereby S1 should be represented by the rows and S2 by the columns.
 
 
 **b)** Implement the function nw_init() which takes two sequences S1 and S2 as well as the scoring function and fills in the values for the first row and first column of the matrix with the correct values.
@@ -99,10 +103,44 @@ Utilize **a)** in your implementation.
 
 The following steps will help you with implementing the traceback.
 
-**d)** Implement the function previous_cells() which takes two sequences S1 and S2, scoring function, the filled in recursion matrix from the step **c)** and the cell coordinates (row, column).
-The function should output the tuple of all possible cell previous cells.
+**d)** Implement the function previous_cells() which takes two sequences S1 and S2, scoring function, the filled in recursion matrix from the step **c)** and the cell coordinates as a tuple (row, column).
+The function should output a list of tuples of all possible previous cells. The tuples should be again structured like
+(row, column).
 
-**e)** Implement the function which builds all possible traceback paths. 
+**e)** Implement the function which builds all possible traceback paths. This function should return a list of possible paths which
+themselves are a list of tuples (row, column). The ordering must be decreasing. Meaning paths should start in the lower
+right corner of the matrix.
 
-**f)** Implement the function build_alignment() which takes two sequences and outputs the alignment.
+**f)** Implement the function build_alignment() which takes two sequences and a path as a list of tuples. This function
+should return an alignment tuple. Meaning two strings of same length with introduced gaps. 
+
+### _Preparing for the Exam_
+
+The [exercise_sheet3.py](./exercise_sheet3.py) file provides the possibility to create training examples for the exam.
+You can just edit the two sequences and the scoring scheme at the bottom of the file:
+
+```python
+if __name__ == "__main__":
+    seq1 = "AT"
+    seq2 = "CTAT"
+    scoring = {"match": -1, "mismatch": 0, "gap_introduction": 1}
+
+    nw_init_csv_maker(seq1, seq2, scoring)
+```
+
+and run it via the command line:
+
+```shell
+python exercise_sheet3.py
+```
+
+This will produce a csv file that you can import into excel, libre office calc, etc., where you
+can fill in the forward values by yourself. To check if you provided the correct result, you
+can go to the [test_exercise_sheet3](./tests/test_exercise_sheet3.py) enter the same sequence and 
+scoring and run it similarily:
+
+```shell
+python tests/test_exercise_sheet3.py
+```
+
 
