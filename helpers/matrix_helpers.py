@@ -1,10 +1,10 @@
-def init_matrix_correct(seq1, seq2):
+def zero_init_correct(seq1, seq2):
     return [[0] * (len(seq2)+1) for _ in range(len(seq1) + 1)]
 
 
 def nw_init_correct(seq1, seq2, scoring):
     match, mismatch, gap = scoring["match"], scoring["mismatch"], scoring["gap_introduction"]
-    matrix = init_matrix_correct(seq1, seq2)
+    matrix = zero_init_correct(seq1, seq2)
     first_row = [i * mismatch for i in range(len(seq2) + 1)]
     matrix[0] = first_row
     for index, column in enumerate(matrix):
@@ -43,7 +43,6 @@ def nw_forward_correct(seq1, seq2, scoring):
             diagonal = matrix[row_index-1][column_index-1] + no_gap_score
             left = matrix[row_index][column_index - 1] + gap_score
             top = matrix[row_index - 1][column_index] + gap_score
-            max_val = max(top, left, diagonal)
-            matrix[row_index][column_index] = max_val
-
+            min_val = min(top, left, diagonal)
+            matrix[row_index][column_index] = min_val
     return matrix
