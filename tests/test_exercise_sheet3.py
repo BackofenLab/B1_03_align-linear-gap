@@ -1,5 +1,5 @@
 from exercise_sheet3 import *
-from helpers.matrix_helpers import nw_init_correct, given_matrix_csv_maker, nw_forward_correct
+from helpers.matrix_helpers import nw_init_correct, given_matrix_csv_maker, nw_forward_correct, zero_init_correct
 
 
 def test_exercise_1a():
@@ -84,6 +84,25 @@ def test_exercise_3c():
 def test_exercise_3d():
     a, b, c, d = exercise_3()
     assert not d
+    
+  
+def test_exercise_4a(seq1, seq2):
+    expected_matrix = zero_init_correct(seq1, seq2)
+    actual_matrix = zero_init(seq1, seq2)
+    assert expected_matrix == actual_matrix
+
+
+def test_exercise_4b(seq1, seq2, scoring):
+    expected_matrix = nw_init_correct(seq1, seq2, scoring)
+    actual_matrix = nw_init(seq1, seq2, scoring)
+    assert expected_matrix == actual_matrix
+
+
+def test_exercise_4c(seq1, seq2, scoring):
+    expected_matrix = nw_forward_correct(seq1, seq2, scoring)
+    actual_matrix = nw_forward(seq1, seq2, scoring)
+    assert expected_matrix == actual_matrix
+
 
 
 if __name__ == "__main__":
