@@ -126,7 +126,7 @@ def build_alignment_correct(seq1, seq2, alignment_path):
     alignment_path = alignment_path[::-1]
 
     prev_cell = 0, 0
-    for cell in alignment_path[1:-1]:
+    for cell in alignment_path[1:]:
         prev_row, prev_column = prev_cell
         row, column = cell
 
