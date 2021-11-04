@@ -76,6 +76,19 @@ which are False
 
 ### _Exercise 4 - Programming assignment: Implementation of Needleman-Wunsch algorithm_
 
+---
+**NOTE**
+
+The programming assignment will use a scoring dictionary with 3 entries. This should look as follows:
+
+scoring = {"match": -1,
+               "mismatch": 1,
+               "gap_introduction": 0}
+
+Make sure you use the correct keys in your implementation.
+
+---
+
 **a)** Implement the function zero_init() which takes two sequences S1 and S2 and creates the Needleman-Wunsch matrix and initiates all the matrix values with zeroes
 
 

@@ -1,4 +1,5 @@
 from helpers.matrix_helpers import nw_init_csv_maker
+from typing import Dict
 
 
 def exercise_1():
@@ -128,19 +129,22 @@ def zero_init(seq1, seq2):
     return None
 
 
-def nw_init(seq1, seq2, scoring):
+def nw_init(seq1, seq2, scoring: Dict[str, int]):
     """
     Exercise 4 b
     Implement the function nw_init() which takes two sequences S1 and S2 as
     well as the scoring function and fills in the values for the first row and
     first column of the matrix with the correct values. Utilize a) in your
     implementation.
+    The scoring should be a dictionary like the one below in the
+    if __name__ == "__main__":
+    part
     """
     matrix = zero_init(seq1, seq2)
     return None
 
 
-def nw_forward(seq1, seq2):
+def nw_forward(seq1, seq2, scoring: Dict[str, int]):
     """
     Exercise 4 c
     Implement the function nw_forward() which takes the two sequences S1 and
