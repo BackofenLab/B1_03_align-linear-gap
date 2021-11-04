@@ -14,6 +14,7 @@ SCORING = [
     {"match": -1, "mismatch": 0, "gap_introduction": 1},
     {"match": -1, "mismatch": 0, "gap_introduction": 2},
     {"match": -1, "mismatch": 1, "gap_introduction": 2},
+    {"match": -1, "mismatch": 2, "gap_introduction": 1},
 ]
 
 
@@ -180,6 +181,7 @@ def test_exercise_4e(seq1, seq2, scoring):
     actual_paths = set(actual_paths)
     assert expected_paths == actual_paths
 
+
 @pytest.mark.parametrize(
     "seq1,seq2,scoring",
     [
@@ -187,6 +189,7 @@ def test_exercise_4e(seq1, seq2, scoring):
         ("TCCCGG", "TCAAA", SCORING[0]),
         ("TCCGA", "TACGCGC", SCORING[1]),
         ("TCCGA", "TACGCGC", SCORING[2]),
+        ("AAA", "TTT", SCORING[3]),
     ]
 )
 def test_exercise_4f(seq1, seq2, scoring):
