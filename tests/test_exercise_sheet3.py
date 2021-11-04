@@ -104,13 +104,12 @@ def test_exercise_4c(seq1, seq2, scoring):
     assert expected_matrix == actual_matrix
 
 
-
 if __name__ == "__main__":
     seq1 = "AT"
     seq2 = "CTAT"
-    scoring = {"match": 1,
-               "mismatch": -2,
-               "gap_introduction": -1}
+    scoring = {"match": -1,
+               "mismatch": 0,
+               "gap_introduction": 1}
 
     matrix = nw_forward_correct(seq1, seq2, scoring)
     given_matrix_csv_maker(seq1, seq2, matrix)

@@ -185,9 +185,9 @@ def build_alignment(seq1, seq2, traceback_path):
 if __name__ == "__main__":
     seq1 = "AT"
     seq2 = "CTAT"
-    scoring = {"match": 1,
-               "mismatch": -2,
-               "gap_introduction": -1}
+    scoring = {"match": -1,
+               "mismatch": 0,
+               "gap_introduction": 1}
 
 
     nw_init_csv_maker(seq1, seq2, scoring)
