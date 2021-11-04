@@ -1,46 +1,63 @@
 def zero_init_correct(seq1, seq2):
-    return [[0] * (len(seq2)+1) for _ in range(len(seq1) + 1)]
+    return [[0] * (len(seq2) + 1) for _ in range(len(seq1) + 1)]
 
 
 def nw_init_correct(seq1, seq2, scoring):
-    match, mismatch, gap = scoring["match"], scoring["mismatch"], scoring["gap_introduction"]
+    match, mismatch, gap = (
+        scoring["match"],
+        scoring["mismatch"],
+        scoring["gap_introduction"],
+    )
     matrix = zero_init_correct(seq1, seq2)
-    first_row = [i * mismatch for i in range(len(seq2) + 1)]
+    first_row = [i * gap for i in range(len(seq2) + 1)]
     matrix[0] = first_row
     for index, column in enumerate(matrix):
-        column[0] = index * mismatch
+        column[0] = index * gap
     return matrix
 
 
 def nw_init_csv_maker(seq1, seq2, scoring, csv_file_name="matrix.csv"):
     matrix = nw_init_correct(seq1, seq2, scoring)
     with open(csv_file_name, "w") as f:
-        f.write(",".join("  "+seq2) + "\n")
+        f.write(",".join("  " + seq2) + "\n")
 
         left_column = " " + seq1
         for index, char in enumerate(left_column):
-            f.write(char + "," + ",".join([str(x) for x in matrix[index]]) + "\n")
+            f.write(
+                char + "," + ",".join([str(x) for x in matrix[index]]) + "\n"
+            )
 
 
 def given_matrix_csv_maker(seq1, seq2, matrix, csv_file_name):
     with open(csv_file_name, "w") as f:
-        f.write(",".join("  "+seq2) + "\n")
+        f.write(",".join("  " + seq2) + "\n")
 
         left_column = " " + seq1
         for index, char in enumerate(left_column):
-            f.write(char + "," + ",".join([str(x) for x in matrix[index]]) + "\n")
+            f.write(
+                char + "," + ",".join([str(x) for x in matrix[index]]) + "\n"
+            )
 
 
 def nw_forward_correct(seq1, seq2, scoring):
     matrix = nw_init_correct(seq1, seq2, scoring)
-    match_score, mismatch_score, gap_score = scoring["match"], scoring["mismatch"], scoring["gap_introduction"]
+    match_score, mismatch_score, gap_score = (
+        scoring["match"],
+        scoring["mismatch"],
+        scoring["gap_introduction"],
+    )
 
     for row_index, row in enumerate(matrix[1:], 1):
         for column_index, column in enumerate(row[1:], 1):
-            char_seq_1, char_seq_2 = seq1[row_index-1], seq2[column_index-1]
-            no_gap_score = match_score if char_seq_1 == char_seq_2 else mismatch_score
+            char_seq_1, char_seq_2 = (
+                seq1[row_index - 1],
+                seq2[column_index - 1],
+            )
+            no_gap_score = (
+                match_score if char_seq_1 == char_seq_2 else mismatch_score
+            )
 
-            diagonal = matrix[row_index-1][column_index-1] + no_gap_score
+            diagonal = matrix[row_index - 1][column_index - 1] + no_gap_score
             left = matrix[row_index][column_index - 1] + gap_score
             top = matrix[row_index - 1][column_index] + gap_score
             min_val = min(top, left, diagonal)
@@ -57,8 +74,10 @@ def previous_cells_correct(seq1, seq2, scoring, nw_matrix, cell):
     diagonal = (row - 1, column - 1) if (row > 0 and column > 0) else None
 
     cur_val = nw_matrix[row][column]
-    char_first, char_second = seq1[row-1], seq2[column-1]
-    match_score = scoring["match"] if char_first == char_second else scoring["mismatch"]
+    char_first, char_second = seq1[row - 1], seq2[column - 1]
+    match_score = (
+        scoring["match"] if char_first == char_second else scoring["mismatch"]
+    )
     gap_score = scoring["gap_introduction"]
 
     if diagonal:
@@ -87,7 +106,9 @@ def build_all_traceback_paths_correct(seq1, seq2, scoring, nw_matrix):
     while frontier:
         partial_path = frontier.pop()
         last_cell_partial = partial_path[-1]
-        next_steps = previous_cells_correct(seq1, seq2, scoring, nw_matrix, last_cell_partial)
+        next_steps = previous_cells_correct(
+            seq1, seq2, scoring, nw_matrix, last_cell_partial
+        )
         for next_step in next_steps:
             new_traceback_path = partial_path + [next_step]
             if next_step == (0, 0):
@@ -99,8 +120,8 @@ def build_all_traceback_paths_correct(seq1, seq2, scoring, nw_matrix):
 
 
 def build_alignment_correct(seq1, seq2, alignment_path):
-    align_seq1 = ''
-    align_seq2 = ''
+    align_seq1 = ""
+    align_seq2 = ""
 
     alignment_path = alignment_path[::-1]
 
@@ -110,16 +131,16 @@ def build_alignment_correct(seq1, seq2, alignment_path):
         row, column = cell
 
         if (row > prev_row) and (column > prev_column):
-            align_seq1 += seq1[row-1]
-            align_seq2 += seq2[column-1]
+            align_seq1 += seq1[row - 1]
+            align_seq2 += seq2[column - 1]
 
         elif row > prev_row:
-            align_seq1 += seq1[row-1]
+            align_seq1 += seq1[row - 1]
             align_seq2 += "-"
 
         else:
             align_seq1 += "-"
-            align_seq2 += seq2[column-1]
+            align_seq2 += seq2[column - 1]
 
         prev_cell = cell
 
