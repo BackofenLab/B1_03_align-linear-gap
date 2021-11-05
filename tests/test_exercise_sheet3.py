@@ -167,6 +167,8 @@ def test_exercise_4d(seq1, seq2, scoring, cell):
         ("TCCCGG", "TCAAA", SCORING[0]),
         ("TCCGA", "TACGCGC", SCORING[1]),
         ("TCCGA", "TACGCGC", SCORING[2]),
+        ("AAA", "TTT", SCORING[3]),
+
     ]
 )
 def test_exercise_4e(seq1, seq2, scoring):
