@@ -81,7 +81,7 @@ scoring = {"match": -1,
 You do not need to write the scoring function by yourself. However, make sure you use the correct keys in your implementation.
 An example will be provided in the skeleton of part *a)*. 
 
-Despite most implementations of Needleman Wunsch will use a maximization at the optimization step, we will stick to the lecture and use minimization. (score(match) < score(gap)). Also have a look at return typehints in the skeleton functions and read carefully how the results should be returned.
+Despite most implementations of Needleman Wunsch will use a maximization at the optimization step, we will stick to the lecture and use minimization (score(match) < score(gap)). Also, have a look at return typehints in the skeleton functions and read carefully how the results should be returned.
 
 
 **a)** Implement the function zero_init() which takes two sequences S1 and S2 and creates the Needleman-Wunsch matrix and initiates all the matrix values with zeroes. Hereby S1 should be represented by the rows and S2 by the columns.
