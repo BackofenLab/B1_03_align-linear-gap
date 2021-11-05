@@ -104,34 +104,20 @@ The function should output a list of tuples of all possible previous cells. The 
 
 ### _Preparing for the Exam_
 
-The [exercise_sheet3.py](./exercise_sheet3.py) file provides the possibility to create training examples for the exam. You can just edit the two sequences and the scoring scheme at the bottom of the file:
-
-```python
-if __name__ == "__main__":
-    seq1 = "AT"
-    seq2 = "CTAT"
-    scoring = {"match": -1, "mismatch": 0, "gap_introduction": 1}
-
-    nw_init_csv_maker(seq1, seq2, scoring)
-```
-
-and run it via the command line:
+The [exam_practice_nw.py](./exam_practice_nw.py) file provides the possibility to create training examples for the exam. 
+You can use it as a command line tool e.g. like:
 
 ```shell
-python exercise_sheet3.py
+python exam_practice_nw.py --first AAATGT --second AATTAAAA --match -1 --mismatch 0 --gap_introduction 1 --file_name matrix.csv
 ```
 
-This will produce a csv file that you can import into Excel, Libre Office Calc, etc., where you can fill in the forward values by yourself. To check if you provided the correct result, you can go to the [test_exercise_sheet3](./tests/test_exercise_sheet3.py) enter the same sequence and  scoring and run it similarily.
-However, as the test script has some imports from source root you need to add the exercise sheets folder to PYTHONPATH. This can be achieved via the following command in Linux:
+This will produce a csv file that you can import into Excel, Libre Office Calc, etc., where you can fill in the forward values by yourself. 
+
+To check if you provided the correct result,
+you can use the `--check True` flag and run it similarily.
 
 ```shell
-export PYTHONPATH="${PYTHONPATH}:$(pwd)"
-```
-
-Afterwards you can export the correct results by typing:
-
-```
-python tests/test_exercise_sheet3.py
+python exam_practice_nw.py --check True --first AAATGT --second AATTAAAA --match -1 --mismatch 0 --gap_introduction 1 --file_name matrix_correct.csv
 ```
 
 ---
