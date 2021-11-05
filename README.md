@@ -46,7 +46,7 @@ The Needleman-Wunsch algorithm enables the calculation of the optimal pairwise s
 
 <br>
 <p align="center">
-<img src="./figures/quation_exercise3.svg" alt="metric1" width=60%/>
+<img src="./figures/quation_exercise3.svg" alt="metric1" width=70%/>
  </p>
 
 **a)** Complete the provided table with the correct initialization step.
