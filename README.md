@@ -121,9 +121,16 @@ and run it via the command line:
 python exercise_sheet3.py
 ```
 
-This will produce a csv file that you can import into Excel, Libre Office Calc, etc., where you can fill in the forward values by yourself. To check if you provided the correct result, you can go to the [test_exercise_sheet3](./tests/test_exercise_sheet3.py) enter the same sequence and  scoring and run it similarily:
+This will produce a csv file that you can import into Excel, Libre Office Calc, etc., where you can fill in the forward values by yourself. To check if you provided the correct result, you can go to the [test_exercise_sheet3](./tests/test_exercise_sheet3.py) enter the same sequence and  scoring and run it similarily.
+However, as the test script has some imports from source root you need to add the exercise sheets folder to PYTHONPATH. This can be achieved via the following command in Linux:
 
 ```shell
+export PYTHONPATH="${PYTHONPATH}:$(pwd)"
+```
+
+Afterwards you can export the correct results by typing:
+
+```
 python tests/test_exercise_sheet3.py
 ```
 
