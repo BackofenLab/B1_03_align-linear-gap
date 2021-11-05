@@ -232,11 +232,12 @@ def test_exercise_4f(seq1, seq2, scoring):
     for traceback_path in expected_paths:
         expected_alignment = build_alignment_correct(seq1, seq2, traceback_path)
         actual_alignment = build_alignment(seq1, seq2, traceback_path)
-        print(f"\nFor the Test case:\nS1: {seq1}\nS2: {seq2}\nscoring: {scoring}\npath: {traceback_path}")
-        print("Your alignment is:")
-        print(f"S1: {actual_alignment[0]}\nS2: {actual_alignment[1]}")
-        print("It should be:")
-        print(f"S1: {expected_alignment[0]}\nS2: {expected_alignment[1]}")
+        if actual_alignment != expected_alignment:
+            print(f"\nFor the Test case:\nS1: {seq1}\nS2: {seq2}\nscoring: {scoring}\npath: {traceback_path}")
+            print("Your alignment is:")
+            print(f"S1: {actual_alignment[0]}\nS2: {actual_alignment[1]}")
+            print("It should be:")
+            print(f"S1: {expected_alignment[0]}\nS2: {expected_alignment[1]}")
         assert expected_alignment == actual_alignment
 
 
