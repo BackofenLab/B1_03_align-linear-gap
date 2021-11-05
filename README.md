@@ -53,7 +53,7 @@ The Needleman-Wunsch algorithm enables the calculation of the optimal pairwise s
 
 **b)** Using dynamic programming technique fill in all values in the matrix.
 
-**c)** Using the matrix from **b)** find the optimal alignment of the given sequences.
+**c)** Using the matrix from *b)* find the optimal alignment of the given sequences.
 
 **d)** Find the optimal alignment of the given sequences, while assuming that the first G character in each sequence has to be matched/aligned.
 
