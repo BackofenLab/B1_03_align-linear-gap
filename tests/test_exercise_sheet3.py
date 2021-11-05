@@ -1,5 +1,6 @@
 from exercise_sheet3 import *
 import pytest
+import pprint
 from helpers.matrix_helpers import (
     nw_init_correct,
     given_matrix_csv_maker,
@@ -111,6 +112,12 @@ def test_exercise_3d():
 def test_exercise_4a(seq1, seq2):
     expected_matrix = zero_init_correct(seq1, seq2)
     actual_matrix = zero_init(seq1, seq2)
+    if actual_matrix != expected_matrix:
+        print(f"For the Test case:\nS1: {seq1}\nS2: {seq2}\nscoring: {scoring}")
+        print(f"Your matrix is:")
+        pprint.pprint(actual_matrix)
+        print("It is supposed to look like:")
+        pprint.pprint(expected_matrix)
     assert expected_matrix == actual_matrix
 
 
@@ -125,6 +132,12 @@ def test_exercise_4a(seq1, seq2):
 def test_exercise_4b(seq1, seq2, scoring):
     expected_matrix = nw_init_correct(seq1, seq2, scoring)
     actual_matrix = nw_init(seq1, seq2, scoring)
+    if actual_matrix != expected_matrix:
+        print(f"For the Test case:\nS1: {seq1}\nS2: {seq2}\nscoring: {scoring}")
+        print(f"Your matrix is:")
+        pprint.pprint(actual_matrix)
+        print("It is supposed to look like:")
+        pprint.pprint(expected_matrix)
     assert expected_matrix == actual_matrix
 
 
@@ -139,6 +152,12 @@ def test_exercise_4b(seq1, seq2, scoring):
 def test_exercise_4c(seq1, seq2, scoring):
     expected_matrix = nw_forward_correct(seq1, seq2, scoring)
     actual_matrix = nw_forward(seq1, seq2, scoring)
+    if actual_matrix != expected_matrix:
+        print(f"For the Test case:\nS1: {seq1}\nS2: {seq2}\nscoring: {scoring}")
+        print(f"Your matrix is:")
+        pprint.pprint(actual_matrix)
+        print("It is supposed to look like:")
+        pprint.pprint(expected_matrix)
     assert expected_matrix == actual_matrix
 
 @pytest.mark.parametrize(
@@ -157,6 +176,11 @@ def test_exercise_4d(seq1, seq2, scoring, cell):
     actual_cells = previous_cells(seq1, seq2, scoring, nw_matrix, cell)
     expected_cells = set(expected_cells)
     actual_cells = set(actual_cells)
+    if actual_cells != expected_cells:
+        print(f"For the Test case:\nS1: {seq1}\nS2: {seq2}\ncell: {cell}\n"
+              f"scoring: {scoring}")
+        print(f"Your previous cells are:\n{actual_cells}")
+        print(f"It should be:\n{expected_cells}")
     assert expected_cells == actual_cells
 
 
@@ -181,6 +205,12 @@ def test_exercise_4e(seq1, seq2, scoring):
     expected_paths = set(expected_paths)
     actual_paths = [tuple(x) for x in actual_paths]
     actual_paths = set(actual_paths)
+    if actual_paths != expected_paths:
+        print(f"For the Test case:\nS1: {seq1}\nS2: {seq2}\nscoring: {scoring}")
+        print(f"Your paths are:")
+        pprint.pprint(actual_paths)
+        print(f"It should be:")
+        pprint.pprint(expected_paths)
     assert expected_paths == actual_paths
 
 
