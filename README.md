@@ -141,4 +141,43 @@ scoring and run it similarily:
 python tests/test_exercise_sheet3.py
 ```
 
+---
+
+#### Recommended good practices
+
+Here we have included some best practices helping you solve the exercises as efficiently as possible. First, clone the assignment repository.
+    
+
+```
+$ git clone git@github.com:Bioinformatics-teaching/exercise-sheet-3-sequence-alignment-userID.git
+```
+
+Do not forget to use your own user ID. Now, answers the questions.
+
+
+```
+$ cd exercise-sheet-3-sequence-alignment-userID
+$ emacs -nw exercise_sheet3.py
+```
+
+Include the changes and make a commit describing the modifications.
+
+
+```
+$ git add exercise_sheet3.py
+$ git commit -m "Description of your modifications"
+```
+
+ 
+Send your results.       
+
+
+```
+$ git push
+```
+
+Done! But, it would be nice to know something about the score, wouldn't it? Let's check the autograding results. This PR will also be used by the teachers to include specific comments.
+
+
+<img src="./figures/sheet2_classroom.gif" alt="Autograding" width=100%/>
 
