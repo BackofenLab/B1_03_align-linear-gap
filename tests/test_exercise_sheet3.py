@@ -195,6 +195,8 @@ def test_exercise_4d(seq1, seq2, scoring, cell):
 
     ]
 )
+
+
 def test_exercise_4e(seq1, seq2, scoring):
     nw_matrix = nw_forward_correct(seq1, seq2, scoring)
     expected_paths = build_all_traceback_paths_correct(
