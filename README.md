@@ -44,12 +44,9 @@ For the given examples which ones can be called alignments:
 
 The Needleman-Wunsch algorithm enables the calculation of the optimal pairwise sequence alignment with linear gap cost. Given the following two sequences S1, S2 and the given cost function complete the tasks **a-d**.
 
+<br>
 <p align="center">
-<img src="./figures/Equations1.svg" alt="metric1" width=60%/>
- </p>
-
-<p align="center">
-<img src="./figures/table.svg" alt="metric1" width=60%/>
+<img src="./figures/quation_exercise3.svg" alt="metric1" width=60%/>
  </p>
 
 **a)** Complete the provided table with the correct initialization step
