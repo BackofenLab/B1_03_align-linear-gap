@@ -166,8 +166,8 @@ def previous_cells(
     Exercise 4 d
     Implement the function previous_cells() which takes two sequences S1 and
     S2, scoring function, the filled in recursion matrix from the step c) and
-    the cell coordinates (row, column). The function should output the tuple
-    of all possible cell previous cells.
+    the cell coordinates (row, column). The function should output the list
+    of all possible previous cells.
     """
     return None
 
