@@ -113,7 +113,7 @@ def test_exercise_4a(seq1, seq2):
     expected_matrix = zero_init_correct(seq1, seq2)
     actual_matrix = zero_init(seq1, seq2)
     if actual_matrix != expected_matrix:
-        print(f"\nFor the Test case:\nS1: {seq1}\nS2: {seq2}\nscoring: {scoring}")
+        print(f"\nFor the Test case:\nS1: {seq1}\nS2: {seq2}")
         print(f"Your matrix is:")
         pprint.pprint(actual_matrix)
         print("It is supposed to look like:")
