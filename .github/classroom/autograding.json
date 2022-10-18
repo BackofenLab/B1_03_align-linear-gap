@@ -2,7 +2,7 @@
   "tests": [
     {
       "name": "Exercise 4 - programming assignment: item a",
-      "setup": "",
+      "setup": "sudo -H pip3 install -r requirements.txt --quiet",
       "run": "pytest -s --no-header --tb=no -rN -x ./tests/test_exercise_sheet3.py -k '4a'",
       "input": "",
       "output": "",
